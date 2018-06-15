@@ -27,6 +27,15 @@ describe DockingStation do
       20.times { subject.dock(Bike.new) }
       expect { subject.dock(Bike.new) }.to raise_error('capacity full')
     end
+
+    it 'returns false if not full' do
+      expect(subject.instance_eval { full? }).to eq false
+    end
+
+    it 'returns true if full' do
+      20.times { subject.dock(Bike.new) }
+      expect(subject.instance_eval { full? }).to eq true
+    end
   end
 
   describe '#release_bike' do
