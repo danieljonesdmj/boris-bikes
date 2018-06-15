@@ -1,10 +1,9 @@
 require_relative 'bike'
 
 class DockingStation
-
   def release_bike
+    raise 'no bikes available' if @bike.nil?
     @bike
-    fail "no bikes available" if @bike == nil
   end
 
   def dock(bike)
