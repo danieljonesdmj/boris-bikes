@@ -6,6 +6,7 @@ class DockingStation
   def initialize(capacity = DEFAULT_CAPACITY)
     @capacity = capacity
     @bikes = []
+    @broken_bikes = []
   end
 
   def release_bike
@@ -15,7 +16,11 @@ class DockingStation
 
   def dock(bike)
     raise 'capacity full' if full?
-    bikes << bike
+    if bike.working?
+      bikes << bike
+    else
+      @broken_bikes << bike
+    end
   end
 
   attr_reader :bikes

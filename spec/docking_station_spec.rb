@@ -28,6 +28,19 @@ describe DockingStation do
       expect(subject.bikes).to eq [bike]
     end
 
+    it 'not releasing broken bike' do
+      bike = Bike.new
+      bike.working = false
+      subject.dock(bike)
+      expect { subject.release_bike }.to raise_error('no bikes available')
+    end
+
+    it 'lets user flag bike as broken' do
+      bike = Bike.new
+      bike.working = false
+      expect(bike.working).to eq false
+    end
+
     it 'returns error if capacity hit' do
       subject.capacity.times { subject.dock(Bike.new) }
       expect { subject.dock(Bike.new) }.to raise_error('capacity full')
